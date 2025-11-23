@@ -12,15 +12,17 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class LoginController {
+
     @FXML
     private TextField usernameField;
+
     @FXML
     private PasswordField passwordField;
+
     @FXML
     private Button loginButton;
+
     @FXML
     private Label messageLabel;
 
@@ -28,28 +30,44 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Initialize login screen
+        // Optional: preload, animations, or focus logic
     }
 
     @FXML
     public void handleLogin() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            messageLabel.setText("Please enter both username and password.");
+            return;
+        }
+
         User user = userDAO.authenticate(username, password);
+
         if (user != null) {
-            // Successful login, navigate to product list
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/product_list.fxml"));
-                Parent root = loader.load();
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.setScene(new Scene(root));
-            } catch (IOException e) {
-                messageLabel.setText("Error loading application.");
-                System.err.println("Error loading FXML: " + e.getMessage());
-            }
+            loadProductList(user);
         } else {
-            // Failed login, show error message
             messageLabel.setText("Invalid username or password.");
+        }
+    }
+
+    private void loadProductList(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/product_list.fxml"));
+            Parent root = loader.load();
+
+            // Pass logged-in user into product page (optional but recommended)
+            ProductController productController = loader.getController();
+            productController.setLoggedInUser(user);
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            messageLabel.setText("Error loading the product page.");
+            System.err.println("FXML Load Error: " + e.getMessage());
         }
     }
 }

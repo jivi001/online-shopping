@@ -10,6 +10,7 @@
 *.tar.gz
 *.rar
 
+
 # Maven
 target/
 pom.xml.tag
@@ -22,6 +23,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+
 # IDE
 .vscode/
 .idea/
@@ -30,10 +32,12 @@ buildNumber.properties
 *.ipr
 out/
 
+
 # OS
 .DS_Store
 Thumbs.db
 .Thumbs.db
+
 
 # Build output
 bin/
@@ -63,3 +67,10 @@ __pycache__/
 # Database
 *.db
 *.sqlite
+*.sqlite3
+*.sqlite3.db
+*.sqlite3-wal
+*.sqlite3-shm
+*.sqlite3-wal
+*.sqlite3-wal.db
+*.sqlite3-journal

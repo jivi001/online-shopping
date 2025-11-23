@@ -12,15 +12,20 @@ public class CartController {
 
     @FXML
     private ListView<Product> cartListView;
+
     @FXML
     private Label totalLabel;
+
     @FXML
     private Button checkoutButton;
 
+    // Global cart shared across controllers
     private static final ObservableList<Product> cartItems = FXCollections.observableArrayList();
 
     public static void addProduct(Product product) {
-        cartItems.add(product);
+        if (product != null) {
+            cartItems.add(product);
+        }
     }
 
     @FXML
@@ -31,7 +36,11 @@ public class CartController {
 
     @FXML
     public void handleCheckout() {
-        // In a real app, you'd process the order here
+        if (cartItems.isEmpty()) {
+            totalLabel.setText("Cart is empty.");
+            return;
+        }
+
         cartItems.clear();
         updateTotal();
         totalLabel.setText("Checkout successful!");
@@ -47,10 +56,10 @@ public class CartController {
     }
 
     private void updateTotal() {
-        double total = 0;
-        for (Product item : cartItems) {
-            total += item.getPrice();
-        }
+        double total = cartItems.stream()
+                .mapToDouble(Product::getPrice)
+                .sum();
+
         totalLabel.setText(String.format("Total: $%.2f", total));
     }
 }

@@ -14,21 +14,26 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class ProductController {
+
     @FXML
     private TableView<Product> productTable;
+
     @FXML
     private TableColumn<Product, String> nameColumn;
+
     @FXML
     private TableColumn<Product, Double> priceColumn;
+
     @FXML
     private TableColumn<Product, Integer> stockColumn;
+
     @FXML
     private Button addToCartButton;
+
     @FXML
     private Button viewCartButton;
+
     @FXML
     private Label infoLabel;
 
@@ -36,6 +41,7 @@ public class ProductController {
 
     @FXML
     public void initialize() {
+        // Bind Product model fields to table columns
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -51,12 +57,15 @@ public class ProductController {
     @FXML
     public void handleAddToCart() {
         Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
-        if (selectedProduct != null) {
-            CartController.addProduct(selectedProduct);
-            infoLabel.setText("Added " + selectedProduct.getName() + " to cart.");
-        } else {
+
+        if (selectedProduct == null) {
             infoLabel.setText("Please select a product to add to the cart.");
+            return;
         }
+
+        // Add product to the global cart
+        CartController.addProduct(selectedProduct);
+        infoLabel.setText("Added " + selectedProduct.getName() + " to cart.");
     }
 
     @FXML
@@ -64,10 +73,19 @@ public class ProductController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/cart.fxml"));
             Parent root = loader.load();
+
             Stage stage = (Stage) viewCartButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-        } catch (IOException e) {
+            stage.show();
+
+        } catch (Exception e) {
+            infoLabel.setText("Error loading cart view.");
             e.printStackTrace();
         }
+    }
+
+    // Optional: if you want to show "Welcome, user"
+    public void setLoggedInUser(app.models.User user) {
+        infoLabel.setText("Welcome " + user.getName() + "!");
     }
 }

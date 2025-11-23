@@ -1,22 +1,24 @@
 package app.dao;
 
 import app.db.Database;
+import app.models.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import app.models.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class ProductDAO {
+
     public ObservableList<Product> findAll() {
         ObservableList<Product> list = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM Products";
-        try (Connection c = Database.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql);
+        String sql = "SELECT product_id, name, description, price, stock FROM Products";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 Product p = new Product(
                     rs.getInt("product_id"),
@@ -27,9 +29,28 @@ public class ProductDAO {
                 );
                 list.add(p);
             }
-        } catch (SQLException e) {
+
+        } catch (Exception e) {
             System.err.println("Error fetching products: " + e.getMessage());
         }
+
         return list;
+    }
+
+    public void save(Product product) {
+        String sql = "INSERT INTO Products (name, description, price, stock) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, product.getName());
+            ps.setString(2, product.getDescription());
+            ps.setDouble(3, product.getPrice());
+            ps.setInt(4, product.getQuantity());
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            System.err.println("Error saving product: " + e.getMessage());
+        }
     }
 }
