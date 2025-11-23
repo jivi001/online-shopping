@@ -110,12 +110,8 @@ online-shopping/
 │           └── app.css                 # Modern dark theme styles
 ├── sql/
 │   └── sample-data.sql                 # Database schema & sample data
-├── javafx-sdk-25.0.1/                  # JavaFX SDK
-├── lib/                                # External libraries
 ├── pom.xml                             # Maven configuration
-├── mvnw.cmd                            # Maven wrapper (Windows)
-└── build-and-run.cmd                   # Build & run script
-
+└── mvnw.cmd                            # Maven wrapper (Windows)
 ```
 
 ## 🗄️ Database Schema
@@ -169,30 +165,113 @@ INSERT INTO Users (username, password, email, role)
 VALUES ('test', 'test123', 'test@example.com', 'customer');
 ```
 
-## 🛠️ Development
+---
 
-### Build with Maven
-```bash
-.\mvnw.cmd clean compile
+## 📚 Development Guide
+
+### UI Modernization Details
+
+The application features a **premium dark theme** with the following enhancements:
+
+#### CSS Improvements (`src/main/resources/styles/app.css`):
+- Premium dark gradient background (#1a1a2e to #16213e)
+- Glassmorphism effects with semi-transparent elements
+- Vibrant purple accent colors (#533483)
+- Smooth hover animations and transitions
+- Modern button styles with gradients and shadows
+- Enhanced table styling with better contrast
+- Improved form inputs with focus effects
+
+#### FXML Layout Updates:
+
+**Login Page** (`login.fxml`):
+- Shopping cart emoji icon (🛒)
+- Better spacing and padding
+- Larger, more prominent header
+- Improved input field sizing
+
+**Product List** (`product_list.fxml`):
+- Changed from AnchorPane to VBox for better responsiveness
+- Emoji icons (📦 for products, ➕ for add, 🛒 for cart)
+- Better column widths and headers
+- Improved button layout with proper spacing
+
+**Shopping Cart** (`cart.fxml`):
+- Modern VBox layout
+- Better visual hierarchy
+- Emoji icons for actions (🗑️ for remove, ✓ for checkout)
+- Improved total display with rupee symbol (₹)
+
+---
+
+## 🛠️ Troubleshooting
+
+### Cart Display Issues
+
+**Problem:** Cart items not showing properly
+
+**Solution:** The `Product` class now includes a `toString()` method and custom cell factory:
+
+```java
+// Product.java
+@Override
+public String toString() {
+    return String.format("%s - ₹%.2f (Stock: %d)", productName, price, quantity);
+}
+
+// CartController.java - Custom cell factory
+cartListView.setCellFactory(param -> new ListCell<Product>() {
+    @Override
+    protected void updateItem(Product item, boolean empty) {
+        super.updateItem(item, empty);
+        if (empty || item == null) {
+            setText(null);
+        } else {
+            setText(String.format("🛍️ %s - ₹%.2f", item.getName(), item.getPrice()));
+        }
+    }
+});
 ```
 
-### Run Tests
-```bash
-.\mvnw.cmd test
+### Order Tracking Issues
+
+**Problem:** Orders not saving to database
+
+**Solution:** Fixed SQL statement to match database schema:
+
+```java
+// WRONG (before):
+INSERT INTO Orders (user_id, total, status, order_date) VALUES (?, ?, ?, NOW())
+
+// CORRECT (after):
+INSERT INTO Orders (user_id, total, status) VALUES (?, ?, ?)
+// order_date has DEFAULT CURRENT_TIMESTAMP in schema
 ```
 
-### Package Application
-```bash
-.\mvnw.cmd clean package
+**Debug Logging:** The checkout process now includes detailed console output:
+
+```
+=== CHECKOUT DEBUG ===
+User ID: 1
+Total: ₹2598.00
+Items in cart: 3
+Order insert rows affected: 1
+Generated Order ID: 4
+Adding item: Logitech Mouse M235 (ID: 1) - ₹899.00
+Adding item: HP Keyboard K150 (ID: 2) - ₹699.00
+Adding item: Samsung Earbuds S23 (ID: 5) - ₹1999.00
+Order items inserted: 3
+=== CHECKOUT SUCCESS ===
 ```
 
-## 🐛 Troubleshooting
+### Common Issues & Solutions
 
-### Database Connection Issues
+#### Database Connection
 
 **Error: Access Denied**
 ```
 Solution: Update password in src/main/java/app/db/Database.java
+private static final String PASS = "YOUR_PASSWORD_HERE";
 ```
 
 **Error: Database not found**
@@ -203,7 +282,7 @@ CREATE DATABASE amazonapp;
 source sql/sample-data.sql
 ```
 
-### Maven Wrapper Issues
+#### Maven Wrapper
 
 **Error: mvnw.cmd not working**
 ```bash
@@ -211,43 +290,54 @@ source sql/sample-data.sql
 .\mvnw.cmd clean javafx:run
 ```
 
-### JavaFX Issues
+#### JavaFX
 
 **Error: JavaFX modules not found**
 ```
 Solution: The project uses Maven dependencies - no manual JavaFX setup needed
 ```
 
-### Order Items Not Saving
+#### Order Items Not Saving
 
-Check console output for debug messages:
+1. Check console output for debug messages
+2. Verify database connection
+3. Ensure user exists in Users table (defaults to user_id=1)
+4. Run these SQL queries to verify:
+
+```sql
+-- Check if orders are being created
+SELECT * FROM Orders ORDER BY order_id DESC LIMIT 5;
+
+-- Check if order items are being inserted
+SELECT 
+    oi.order_item_id,
+    oi.order_id,
+    p.name as product_name,
+    oi.quantity,
+    oi.price_at_purchase,
+    o.total as order_total,
+    o.status,
+    o.order_date
+FROM Order_Items oi
+JOIN Products p ON oi.product_id = p.product_id
+JOIN Orders o ON oi.order_id = o.order_id
+ORDER BY oi.order_item_id DESC
+LIMIT 10;
 ```
-=== CHECKOUT DEBUG ===
-User ID: 1
-Total: ₹2598.00
-Items in cart: 3
-...
-=== CHECKOUT SUCCESS ===
-```
 
-See `ORDER_TROUBLESHOOTING.md` for detailed debugging steps.
+### Success Indicators
 
-## 📚 Additional Documentation
+✅ **What to look for:**
+- Console shows "=== CHECKOUT SUCCESS ==="
+- UI shows "✓ Order #X placed successfully!"
+- MySQL shows new rows in both Orders and Order_Items tables
 
-- `UI_MODERNIZATION_SUMMARY.md` - Details on UI improvements
-- `CART_FIX_GUIDE.md` - Cart display fixes
-- `ORDER_TROUBLESHOOTING.md` - Order tracking debugging
+❌ **Failure Indicators:**
+- Console shows "=== CHECKOUT ERROR ==="
+- UI shows "Checkout failed: [error message]"
+- Check the error message for details
 
-## 🎨 UI Screenshots
-
-The application features:
-- Modern dark gradient backgrounds
-- Glassmorphism card effects
-- Smooth hover animations
-- Purple accent colors
-- Emoji-enhanced UI elements
-- Responsive table views
-- Custom styled buttons and inputs
+---
 
 ## 🔧 Technology Stack
 
