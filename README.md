@@ -74,7 +74,7 @@ The `build-and-run.cmd` script:
 Before running, ensure your MySQL database is configured in `src/main/java/app/db/Database.java`:
 
 ```java
-private static final String DB_URL = "jdbc:mysql://localhost:3306/ecommerce";
+private static final String DB_URL = "jdbc:mysql://localhost:3306/amazonapp";
 private static final String DB_USER = "root";
 private static final String DB_PASSWORD = "";
 ```

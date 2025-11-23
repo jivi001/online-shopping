@@ -1,0 +1,29 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/E:/apache-maven-3.9.11/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.ecommerce:online-shopping >--------------------
+[INFO] Building online-shopping 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ online-shopping ---
+[INFO] Deleting E:\programs\java project\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ online-shopping ---
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ online-shopping ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 13 source files with javac [debug target 17] to target\classes
+[WARNING] location of system modules is not set in conjunction with -source 17
+  not setting the location of system modules may lead to class files that cannot run on JDK 17
+    --release 17 is recommended instead of -source 17 -target 17 because it sets the location of system modules automatically
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.075 s
+[INFO] Finished at: 2025-11-23T15:11:44+05:30
+[INFO] ------------------------------------------------------------------------

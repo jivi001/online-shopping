@@ -11,8 +11,10 @@
     <TextField fx:id="usernameField" promptText="Username" />
     <PasswordField fx:id="passwordField" promptText="Password" />
 
+    <!-- IMPORTANT FIX -->
     <Button fx:id="loginButton" text="Login" onAction="#handleLogin" />
 
     <Label fx:id="messageLabel" textFill="red" />
 
 </VBox>
+<!-- IMPORTANT FIX -->

@@ -63,6 +63,7 @@ __pycache__/
 .settings/
 *.properties
 !pom.xml
+!.mvn/wrapper/maven-wrapper.properties
 
 # Database
 *.db
