@@ -78,21 +78,13 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>app.Main</mainClass>
-
-                    <addExports>
-                        <addExport>javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</addExport>
-                    </addExports>
-
-                    <!-- Fix warning: native access -->
-                    <jvmArgs>
-                        <jvmArg>--enable-native-access=ALL-UNNAMED</jvmArg>
-                    </jvmArgs>
-
-                    <modules>
-                        <module>javafx.controls</module>
-                        <module>javafx.fxml</module>
-                        <module>javafx.graphics</module>
-                    </modules>
+                    <options>
+                        <option>--add-exports</option>
+                        <option>javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</option>
+                        <option>--enable-native-access=ALL-UNNAMED</option>
+                        <option>--add-modules</option>
+                        <option>javafx.controls,javafx.fxml,javafx.graphics</option>
+                    </options>
                 </configuration>
             </plugin>
 

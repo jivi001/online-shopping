@@ -58,4 +58,14 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    // Alias for FXML PropertyValueFactory "stock"
+    public int getStock() {
+        return quantity;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s - ₹%.2f (Stock: %d)", productName, price, quantity);
+    }
 }

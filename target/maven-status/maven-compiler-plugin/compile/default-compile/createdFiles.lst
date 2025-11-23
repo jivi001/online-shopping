@@ -3,6 +3,7 @@ app\controllers\ProductController.class
 app\models\User.class
 app\dao\OrderDAO.class
 app\Main.class
+app\controllers\CartController$1.class
 app\controllers\RegisterController.class
 app\controllers\LoginController.class
 app\controllers\CartController.class

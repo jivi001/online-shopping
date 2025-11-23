@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.dao.ProductDAO;
 import app.models.Product;
+import app.models.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,7 @@ public class ProductController {
     private Label infoLabel;
 
     private final ProductDAO productDAO = new ProductDAO();
+    private User loggedInUser;
 
     @FXML
     public void initialize() {
@@ -65,12 +67,17 @@ public class ProductController {
 
         // Add product to the global cart
         CartController.addProduct(selectedProduct);
-        infoLabel.setText("Added " + selectedProduct.getName() + " to cart.");
+        infoLabel.setText("✓ Added " + selectedProduct.getName() + " to cart");
     }
 
     @FXML
     public void handleViewCart() {
         try {
+            // Pass user to cart controller
+            if (loggedInUser != null) {
+                CartController.setCurrentUser(loggedInUser);
+            }
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/cart.fxml"));
             Parent root = loader.load();
 
@@ -85,7 +92,8 @@ public class ProductController {
     }
 
     // Optional: if you want to show "Welcome, user"
-    public void setLoggedInUser(app.models.User user) {
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
         infoLabel.setText("Welcome " + user.getName() + "!");
     }
 }

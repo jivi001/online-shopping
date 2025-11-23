@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<VBox spacing="10" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ProductController" style="-fx-padding:12;">
-    <Label text="Products" style="-fx-font-size:16px;"/>
-    <TableView fx:id="productTable" prefHeight="400">
-        <columns>
-            <TableColumn fx:id="nameColumn" text="Name" prefWidth="200"/>
-            <TableColumn fx:id="priceColumn" text="Price" prefWidth="80"/>
-            <TableColumn fx:id="stockColumn" text="Stock" prefWidth="60"/>
-        </columns>
-    </TableView>
-    <HBox spacing="10">
-        <Button text="Add to Cart" onAction="#handleAddToCart"/>
-        <Button fx:id="viewCartButton" text="View Cart" onAction="#handleViewCart"/>
-        <Label fx:id="infoLabel" />
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="app.controllers.ProductController"
+      stylesheets="@../styles/app.css"
+      spacing="20"
+      prefHeight="600.0" prefWidth="800.0">
+    
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+    
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Label text="📦 Products" styleClass="header-label" style="-fx-font-size:24px;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="infoLabel" style="-fx-text-fill: #b0b0b0;"/>
     </HBox>
-</VBox>
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.controllers.ProductController"
-            stylesheets="@../styles/app.css">
-    <TableView fx:id="productTable" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0">
+    
+    <TableView fx:id="productTable" VBox.vgrow="ALWAYS" style="-fx-min-height: 400;">
         <columns>
-            <TableColumn fx:id="nameColumn" text="Name" prefWidth="200.0"/>
-            <TableColumn fx:id="priceColumn" text="Price" prefWidth="80.0"/>
-            <TableColumn fx:id="stockColumn" text="Stock" prefWidth="60.0"/>
+            <TableColumn fx:id="nameColumn" text="Product Name" prefWidth="300.0"/>
+            <TableColumn fx:id="priceColumn" text="Price (₹)" prefWidth="120.0"/>
+            <TableColumn fx:id="stockColumn" text="Stock" prefWidth="100.0"/>
         </columns>
     </TableView>
-    <Button fx:id="addToCartButton" layoutX="14.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleAddToCart" text="Add to Cart"/>
-    <Button fx:id="viewCartButton" layoutX="100.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleViewCart" text="View Cart"/>
-    <Label fx:id="infoLabel" layoutX="200.0" layoutY="435.0" />
-</AnchorPane>
+    
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <Button fx:id="addToCartButton" text="➕ Add to Cart" onAction="#handleAddToCart" style="-fx-pref-width: 150; -fx-pref-height: 40;"/>
+        <Button fx:id="viewCartButton" text="🛒 View Cart" onAction="#handleViewCart" styleClass="secondary-button" style="-fx-pref-width: 150; -fx-pref-height: 40;"/>
+    </HBox>
+    
+</VBox>

@@ -10,7 +10,6 @@
 *.tar.gz
 *.rar
 
-
 # Maven
 target/
 pom.xml.tag
@@ -23,31 +22,48 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-
-# IDE
-.vscode/
+# IDE - IntelliJ IDEA
 .idea/
 *.iml
 *.iws
 *.ipr
-out/
 
+# IDE - VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-# OS
-.DS_Store
-Thumbs.db
-.Thumbs.db
-
+# IDE - Eclipse
+.classpath
+.project
+.settings/
 
 # Build output
 bin/
 build/
 dist/
 output/
-*.log
+out/
 
-# Dependencies
-lib/
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+build.txt
+run_log*.txt
+test_results.txt
+run_output.txt
+
+# OS specific
+.DS_Store
+Thumbs.db
+.Thumbs.db
+desktop.ini
+
+# Dependencies (keep lib/ for MySQL connector)
+# lib/ is commented out to keep MySQL JDBC driver
 *.dll
 *.so
 
@@ -56,22 +72,42 @@ __pycache__/
 *.pyc
 *.pyo
 *.egg-info/
+.pytest_cache/
+venv/
+env/
 
 # Project specific
-.classpath
-.project
-.settings/
 *.properties
 !pom.xml
 !.mvn/wrapper/maven-wrapper.properties
+!src/main/resources/**/*.properties
 
-# Database
+# Database files (SQLite)
 *.db
 *.sqlite
 *.sqlite3
 *.sqlite3.db
 *.sqlite3-wal
 *.sqlite3-shm
-*.sqlite3-wal
-*.sqlite3-wal.db
 *.sqlite3-journal
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Documentation build
+docs/_build/
+site/
+
+# Node modules (if using any JS tools)
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Generated files
+folder_structure.txt
+CLEANUP_SUMMARY.md
