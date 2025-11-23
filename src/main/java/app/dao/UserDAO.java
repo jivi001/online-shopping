@@ -8,39 +8,53 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class UserDAO {
+
+    // Authenticate user during login
     public User authenticate(String username, String password) {
-        String sql = "SELECT * FROM Users WHERE username = ?";
-        try (Connection c = Database.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, username);
-            try (ResultSet rs = ps.executeQuery()) {
+        String sql = "SELECT * FROM users WHERE username = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
                 if (rs.next()) {
                     String storedPassword = rs.getString("password");
-                    // Simple password matching (in production, use bcrypt)
+
+                    // simple password match
                     if (password.equals(storedPassword)) {
                         return new User(
-                                rs.getInt("user_id"),
-                                username,
+                                rs.getInt("id"),           // FIXED to match DB
+                                rs.getString("username"),
                                 rs.getString("email"),
                                 storedPassword
                         );
                     }
                 }
             }
+
         } catch (Exception e) {
             System.err.println("Error authenticating user: " + e.getMessage());
         }
-        return null;
+
+        return null; // invalid username or password
     }
 
+
+    // Save new user during registration
     public void save(User user) {
-        String sql = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?)";
-        try (Connection c = Database.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getEmail());
-            ps.executeUpdate();
+        String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getEmail());
+            stmt.executeUpdate();
+
         } catch (Exception e) {
             System.err.println("Error saving user: " + e.getMessage());
         }
