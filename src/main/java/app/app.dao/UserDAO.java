@@ -1,7 +1,7 @@
-package app.dao;
+package dao;
 
-import app.db.Database;
-import app.models.User;
+import db.Database;
+import models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,3 +30,10 @@ public class UserDAO {
         return null;
     }
 }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }

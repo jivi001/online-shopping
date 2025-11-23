@@ -1,9 +1,9 @@
-package app.dao;
+package dao;
 
-import app.db.Database;
+import db.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import app.models.Product;
+import models.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
