@@ -2,13 +2,13 @@ package app.models;
 
 public class User {
     private int userId;
-    private String name;
+    private String username;
     private String email;
     private String password;
 
-    public User(int userId, String name, String email, String password) {
+    public User(int userId, String username, String email, String password) {
         this.userId = userId;
-        this.name = name;
+        this.username = username;
         this.email = email;
         this.password = password;
     }
@@ -22,11 +22,19 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

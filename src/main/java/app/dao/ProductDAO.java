@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class ProductDAO {
     public ObservableList<Product> findAll() {
         ObservableList<Product> list = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM Products ORDER BY created_at DESC";
+        String sql = "SELECT * FROM Products";
         try (Connection c = Database.getConnection();
              PreparedStatement ps = c.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {

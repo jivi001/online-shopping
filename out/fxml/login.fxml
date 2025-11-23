@@ -5,6 +5,6 @@
     <Label text="Online Shopping - Login" style="-fx-font-size:18px;"/>
     <TextField fx:id="usernameField" promptText="Username" />
     <PasswordField fx:id="passwordField" promptText="Password" />
-    <Button text="Login" onAction="#handleLogin" />
+    <Button text="Login" onAction="#onLogin" />
     <Label fx:id="messageLabel" textFill="red" />
 </VBox>
