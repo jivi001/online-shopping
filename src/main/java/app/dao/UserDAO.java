@@ -9,9 +9,8 @@ import java.sql.ResultSet;
 
 public class UserDAO {
 
-    // Authenticate user during login
     public User authenticate(String username, String password) {
-        String sql = "SELECT * FROM users WHERE username = ?";
+        String sql = "SELECT * FROM Users WHERE username = ?";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -23,10 +22,9 @@ public class UserDAO {
                 if (rs.next()) {
                     String storedPassword = rs.getString("password");
 
-                    // simple password match
                     if (password.equals(storedPassword)) {
                         return new User(
-                                rs.getInt("id"),           // FIXED to match DB
+                                rs.getInt("user_id"),
                                 rs.getString("username"),
                                 rs.getString("email"),
                                 storedPassword
@@ -39,13 +37,11 @@ public class UserDAO {
             System.err.println("Error authenticating user: " + e.getMessage());
         }
 
-        return null; // invalid username or password
+        return null;
     }
 
-
-    // Save new user during registration
     public void save(User user) {
-        String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
