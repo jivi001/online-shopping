@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.LoginController">
-    <children>
-        <VBox alignment="CENTER" layoutX="150.0" layoutY="100.0" prefHeight="200.0" prefWidth="300.0" spacing="15.0">
-            <children>
-                <Label text="Login" style="-fx-font-size: 24;" />
-                <TextField fx:id="emailField" promptText="Email" />
-                <PasswordField fx:id="passwordField" promptText="Password" />
-                <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin" text="Login" style="-fx-padding: 10;" />
-            </children>
-            <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </padding>
-        </VBox>
-    </children>
-</AnchorPane>
+<?import javafx.scene.control.*?>
+<VBox spacing="12" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.LoginController" style="-fx-padding:24;">
+    <Label text="Online Shopping - Login" style="-fx-font-size:18px;"/>
+    <TextField fx:id="usernameField" promptText="Username" />
+    <PasswordField fx:id="passwordField" promptText="Password" />
+    <Button text="Login" onAction="#onLogin" />
+    <Label fx:id="messageLabel" textFill="red" />
+</VBox>
