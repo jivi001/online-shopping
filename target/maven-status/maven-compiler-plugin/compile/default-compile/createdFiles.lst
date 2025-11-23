@@ -1,0 +1,13 @@
+app\db\Database.class
+app\controllers\ProductController.class
+app\models\User.class
+app\dao\OrderDAO.class
+app\Main.class
+app\controllers\RegisterController.class
+app\controllers\LoginController.class
+app\controllers\CartController.class
+app\models\OrderItem.class
+app\models\Product.class
+app\dao\UserDAO.class
+app\models\Order.class
+app\dao\ProductDAO.class

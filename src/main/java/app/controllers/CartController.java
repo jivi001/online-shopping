@@ -7,10 +7,13 @@ import javafx.scene.control.Label;
 
 public class CartController {
     @FXML
+    @SuppressWarnings("unused")
     private ListView<?> cartListView;
     @FXML
+    @SuppressWarnings("unused")
     private Label totalLabel;
     @FXML
+    @SuppressWarnings("unused")
     private Button checkoutButton;
 
     @FXML

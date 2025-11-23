@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<VBox spacing="12" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.LoginController" style="-fx-padding:24;">
+    <Label text="Online Shopping - Login" style="-fx-font-size:18px;"/>
+    <TextField fx:id="usernameField" promptText="Username" />
+    <PasswordField fx:id="passwordField" promptText="Password" />
+    <Button text="Login" onAction="#onLogin" />
+    <Label fx:id="messageLabel" textFill="red" />
+</VBox>

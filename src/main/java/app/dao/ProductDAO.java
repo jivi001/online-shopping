@@ -21,14 +21,14 @@ public class ProductDAO {
                 Product p = new Product(
                     rs.getInt("product_id"),
                     rs.getString("name"),
-                    rs.getDouble("price"),
                     rs.getString("description"),
+                    rs.getDouble("price"),
                     rs.getInt("stock")
                 );
                 list.add(p);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error fetching products: " + e.getMessage());
         }
         return list;
     }

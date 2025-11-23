@@ -11,6 +11,7 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
     @FXML
+    @SuppressWarnings("unused")
     private Button loginButton;
 
     @FXML
@@ -20,7 +21,9 @@ public class LoginController {
 
     @FXML
     public void handleLogin() {
+        @SuppressWarnings("unused")
         String email = emailField.getText();
+        @SuppressWarnings("unused")
         String password = passwordField.getText();
         // Add login logic here
     }

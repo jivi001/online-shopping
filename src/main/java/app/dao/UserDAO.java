@@ -16,16 +16,17 @@ public class UserDAO {
             ps.setString(2, password); // NOTE: plain match — replace with bcrypt for production
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    User u = new User();
-                    u.setUserId(rs.getInt("user_id"));
-                    u.setUsername(rs.getString("username"));
-                    u.setEmail(rs.getString("email"));
-                    u.setPassword(rs.getString("password"));
+                    User u = new User(
+                        rs.getInt("user_id"),
+                        username,
+                        rs.getString("email"),
+                        rs.getString("password")
+                    );
                     return u;
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error authenticating user: " + e.getMessage());
         }
         return null;
     }

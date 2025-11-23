@@ -6,8 +6,10 @@ import javafx.scene.control.Button;
 
 public class ProductController {
     @FXML
+    @SuppressWarnings("unused")
     private ListView<?> productListView;
     @FXML
+    @SuppressWarnings("unused")
     private Button addToCartButton;
 
     @FXML

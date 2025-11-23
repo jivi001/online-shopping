@@ -13,6 +13,7 @@ public class RegisterController {
     @FXML
     private PasswordField passwordField;
     @FXML
+    @SuppressWarnings("unused")
     private Button registerButton;
 
     @FXML
@@ -22,8 +23,11 @@ public class RegisterController {
 
     @FXML
     public void handleRegister() {
+        @SuppressWarnings("unused")
         String name = nameField.getText();
+        @SuppressWarnings("unused")
         String email = emailField.getText();
+        @SuppressWarnings("unused")
         String password = passwordField.getText();
         // Add registration logic here
     }
